@@ -11,6 +11,7 @@ You should wait for a first official release.
 - [ ] Submitting Expenses
   - [ ] Adding multiple files while not being reviewed
   - [ ] Removing uploaded files while not being reviewed
+  - [ ] Client-Side size reduction of to-be-uploaded images
 - [ ] Deleting Expenses
 - [ ] Updating Expenses while not being reviewed
 - [ ] Global view of my expenses, grouped by year/month
