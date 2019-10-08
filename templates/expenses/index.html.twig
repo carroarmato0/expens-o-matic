@@ -15,7 +15,7 @@ $('#dateInput').datepicker({
 {% block body %}
 <div class="row">
   <div class="col-xl-4 jumbotron p-4">
-    <form _lpchecked="1">
+    <form>
       <fieldset>
         <legend>New expense</legend>
         <div class="form-group">
@@ -40,8 +40,8 @@ $('#dateInput').datepicker({
           <input type="text" class="form-control datepicker" id="dateInput" data-date-format="dd/mm/yyyy"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
         </div>
         <div class="form-group">
-          <label for="exampleInputFile">Attachment</label>
-          <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+          <label for="attachmentInputFile">Attachment</label>
+          <input type="file" class="form-control-file" id="attachmentInputFile" aria-describedby="fileHelp">
           <small id="fileHelp" class="form-text text-muted">Add required receipts.</small>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
