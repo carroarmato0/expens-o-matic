@@ -7,7 +7,8 @@
 {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" crossorigin="anonymous"></script>
 <script>
-$('#dateInput').datepicker({
+$('.js-datepicker').datepicker({
+  format: 'dd/mm/yyyy'
 });
 </script>
 {% endblock %}
@@ -15,38 +16,33 @@ $('#dateInput').datepicker({
 {% block body %}
 <div class="row">
   <div class="col-xl-3 jumbotron p-4">
-    <form>
-      <fieldset>
-        <legend>New expense</legend>
-        <div class="form-group">
-          <label for="nameTextarea">Name</label>
-          <textarea class="form-control" id="nameTextarea" rows="1"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="descriptionTextarea">Description</label>
-          <textarea class="form-control" id="descriptionTextarea" rows="1"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="valueInput">Amount</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">€</span>
-            </div>
-            <input type="text" class="form-control" id="valueInput" aria-label="Amount (to the nearest euro)">
+    {{ form_start(expenseForm) }}
+      <legend>New expense</legend>
+      <div class="form-group">
+        {{ form_row(expenseForm.name) }}
+      </div>
+      <div class="form-group">
+        {{ form_row(expenseForm.description) }}
+      </div>
+      <div class="form-group">
+        {{ form_label(expenseForm.amount) }}
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">€</span>
           </div>
+          {{ form_widget(expenseForm.amount) }}
         </div>
-        <div class="form-group">
-          <label for="dateInput">Date</label>
-          <input type="text" class="form-control datepicker" id="dateInput" data-date-format="dd/mm/yyyy"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-        </div>
-        <div class="form-group">
-          <label for="attachmentInputFile">Attachment</label>
-          <input type="file" class="form-control-file" id="attachmentInputFile" aria-describedby="fileHelp">
-          <small id="fileHelp" class="form-text text-muted">Add required receipts.</small>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </fieldset>
-    </form>
+      </div>
+      <div class="form-group">
+        {{ form_row(expenseForm.date) }}
+      </div>
+      <div class="form-group">
+        {{ form_label(expenseForm.expenseItems) }}
+        {{ form_widget(expenseForm.expenseItems) }}
+        <small id="expense_form_expenseItems_help" class="form-text text-muted">{{ form_help(expenseForm.expenseItems) }}</small>
+      </div>
+      {{ form_row(expenseForm.submit) }}
+    {{ form_end(expenseForm) }}
   </div>
 
   <div class="col-xl-8 container-fluid p-3">

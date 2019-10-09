@@ -2,6 +2,8 @@
 
   namespace App\Controller;
 
+  use App\Forms\ExpenseFormType;
+  use Symfony\Component\HttpFoundation\Request;
   use Symfony\Component\HttpFoundation\Response;
   use Symfony\Component\Routing\Annotation\Route;
   use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,13 +15,15 @@
 
     /**
      * @Route("/")
+     * @param Request $request
+     * @return Response
      */
-    public function index() {
+    public function index(Request $request) {
 
       // Create my User object, we assume we are Admin for now
       $admin = $this->getDoctrine()->getRepository(User::class)->find(1);
 
-      // Get expens repository
+      // Get expense repository
       $expense_repository = $this->getDoctrine()->getRepository(Expense::class);
       // Fetch user expenses ordered by date
       $my_expenses = $expense_repository->findBy(
@@ -27,8 +31,16 @@
         [ 'date'    => 'DESC'          ]
       );
 
+      // Load form to submit an expense
+      $expenseForm = $this->createForm(ExpenseFormType::class);
 
-
+      // Load Request information
+      $expenseForm->handleRequest($request);
+      // Check if the Expense Form was submitted and is valid
+      if ($expenseForm->isSubmitted() && $expenseForm->isValid()) {
+        //dump($expenseForm->getData());
+      }
+      
       /**
       $entityManager = $this->getDoctrine()->getManager();
       $admin_user = $this->getDoctrine()
@@ -47,7 +59,8 @@
       */
 
       return $this->render('expenses/index.html.twig', array(
-        'expenses' => $my_expenses));
+        'expenses'    => $my_expenses,
+        'expenseForm' => $expenseForm->createView()));
     }
 
   }
