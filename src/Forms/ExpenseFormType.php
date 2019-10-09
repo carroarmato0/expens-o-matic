@@ -47,13 +47,14 @@ class ExpenseFormType extends AbstractType {
           'placeholder' => date('d/m/Y'),
         ],
       ])
-      ->add("expenseItems", FileType::class, [
+      /**->add("expenseItems", FileType::class, [
         'label'      => 'Attachments',
         'attr'       => [
           'class' => 'form-control-file'
         ],
         'help'       => 'Add required receipts.'
       ])
+       */
       ->add("submit", SubmitType::class, [
         'attr'       => [
           'class' => 'btn btn-primary'

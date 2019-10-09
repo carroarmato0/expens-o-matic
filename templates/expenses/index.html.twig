@@ -36,11 +36,13 @@ $('.js-datepicker').datepicker({
       <div class="form-group">
         {{ form_row(expenseForm.date) }}
       </div>
+      {#
       <div class="form-group">
         {{ form_label(expenseForm.expenseItems) }}
         {{ form_widget(expenseForm.expenseItems) }}
         <small id="expense_form_expenseItems_help" class="form-text text-muted">{{ form_help(expenseForm.expenseItems) }}</small>
       </div>
+      #}
       {{ form_row(expenseForm.submit) }}
     {{ form_end(expenseForm) }}
   </div>
