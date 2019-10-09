@@ -30,7 +30,11 @@ $('.js-datepicker').datepicker({
           <div class="input-group-prepend">
             <span class="input-group-text">€</span>
           </div>
+          {% if expenseForm.amount.vars.errors|length > 0 %}
+          {{ form_widget(expenseForm.amount, {'attr': {'class': 'form-control is-invalid'}}) }}
+          {% else %}
           {{ form_widget(expenseForm.amount) }}
+          {% endif %}
         </div>
       </div>
       <div class="form-group">

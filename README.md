@@ -58,7 +58,7 @@ Migrating up to 20191007184657 from 0
 
 ## Todo
 
-- [ ] Submitting Expenses
+- [x] Submitting Expenses
   - [ ] Adding multiple files while not being reviewed
   - [ ] Removing uploaded files while not being reviewed
   - [ ] Client-Side size reduction of to-be-uploaded images

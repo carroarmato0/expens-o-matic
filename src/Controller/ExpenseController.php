@@ -17,6 +17,7 @@
      * @Route("/")
      * @param Request $request
      * @return Response
+     * @throws \Exception
      */
     public function index(Request $request) {
 
@@ -36,27 +37,23 @@
 
       // Load Request information
       $expenseForm->handleRequest($request);
+
       // Check if the Expense Form was submitted and is valid
       if ($expenseForm->isSubmitted() && $expenseForm->isValid()) {
-        //dump($expenseForm->getData());
+        /** @var Expense $expense */
+        $expense = $expenseForm->getData();
+        $expense->setUserId($admin);
+        $expense->setSubmitDate(new \DateTime("now"));
+
+        // Get the Entity Manager
+        $entityManager = $this->getDoctrine()->getManager();
+        // Prepare entity to be save
+        $entityManager->persist($expense);
+        // Perform the insert statements
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_expense_index');
       }
-      
-      /**
-      $entityManager = $this->getDoctrine()->getManager();
-      $admin_user = $this->getDoctrine()
-        ->getRepository(User::class)
-        ->find(1);
-      $expense = new Expense();
-      $expense->setUserId($admin_user);
-      $expense->setSubmitDate( new \DateTime() );
-      $expense->setName('Total');
-      $expense->setDescription('Tankbeurt');
-      $expense->setDate( new \DateTime());
-      $expense->setAmount( 60.45 );
-      $expense->setReimbursed(0);
-      $entityManager->persist($expense);
-      $entityManager->flush();
-      */
 
       return $this->render('expenses/index.html.twig', array(
         'expenses'    => $my_expenses,
