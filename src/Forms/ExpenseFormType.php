@@ -38,11 +38,14 @@ class ExpenseFormType extends AbstractType {
         ],
       ])
       ->add("date", DateType::class, [
-        'label'      => 'Date',
+        'label'   => 'Date',
         'widget'  => 'single_text',
+        'format'  => 'dd/MM/yyyy',
         'html5'   => false,
         'attr'    => [
-          'class' => 'js-datepicker form-control'],
+          'class'       => 'js-datepicker form-control',
+          'placeholder' => date('d/m/Y'),
+        ],
       ])
       ->add("expenseItems", FileType::class, [
         'label'      => 'Attachments',
