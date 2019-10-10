@@ -3,6 +3,7 @@
   namespace App\Controller;
 
   use App\Forms\ExpenseFormType;
+  use Exception;
   use Symfony\Component\HttpFoundation\Request;
   use Symfony\Component\HttpFoundation\Response;
   use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +18,7 @@
      * @Route("/")
      * @param Request $request
      * @return Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Request $request) {
 
