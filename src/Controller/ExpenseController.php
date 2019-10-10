@@ -3,6 +3,7 @@
   namespace App\Controller;
 
   use App\Forms\ExpenseFormType;
+
   use Exception;
   use Symfony\Component\HttpFoundation\Request;
   use Symfony\Component\HttpFoundation\Response;
@@ -59,6 +60,47 @@
       return $this->render('expenses/index.html.twig', array(
         'expenses'    => $my_expenses,
         'expenseForm' => $expenseForm->createView()));
+    }
+
+    /**
+     * @Route("/expense/{id}", name="expense_show")
+     * @param $id
+     * @return Response
+     */
+    public function show($id) {
+      // Get expense repository
+      $expense_repository = $this->getDoctrine()->getRepository(Expense::class);
+      // Fetch expense by id
+      $my_expense = $expense_repository->find($id);
+
+      return $this->render("expenses/show.html.twig", array(
+        'expense' => $my_expense
+      ));
+    }
+
+    /**
+     * @Route("/expense/{id}/delete", methods={"DELETE"})
+     * @param Request $request
+     * @param $id
+     * @return void
+     */
+    public function delete(Request $request, $id) {
+      // Get expense repository
+      $expense_repository = $this->getDoctrine()->getRepository(Expense::class);
+      // Fetch expense by id
+      $my_expense = $expense_repository->find($id);
+
+      dump($my_expense);
+
+      // Get the Entity Manager
+      $entityManager = $this->getDoctrine()->getManager();
+      // Prepare entity to be deleted
+      $entityManager->remove($my_expense);
+      // Perform the delete statements
+      $entityManager->flush();
+
+      //$response = new Response();
+      //$response->send();
     }
 
   }

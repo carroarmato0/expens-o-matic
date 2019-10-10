@@ -6,6 +6,7 @@
 
 {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" crossorigin="anonymous"></script>
+<script src="js/main.js"></script>
 <script>
 $('.js-datepicker').datepicker({
   format: 'dd/mm/yyyy'
@@ -56,7 +57,7 @@ $('.js-datepicker').datepicker({
     {% if expenses is empty %}
     <p>You have no expenses yet. Time to make some ;)</p>
     {% else %}
-    <table class="table">
+    <table id="expenses" class="table">
     <thead>
       <tr>
         <th scope="col">Date</th>
@@ -92,8 +93,8 @@ $('.js-datepicker').datepicker({
           {% if expense.approved == 1 %}
           <a class="btn btn-primary disabled btn-sm" href="#" role="button">Delete</a>
           {% else %}
-            <a class="btn btn-primary btn-sm" href="/expense/{{ expense.id }}/delete" role="button">Delete</a>
-            {% endif %}
+          <a class="btn btn-primary btn-sm delete-expense" href="#" data-id="{{ expense.id }}" role="button">Delete</a>
+          {% endif %}
         </td>
       </tr>
       {% endfor %}
@@ -102,5 +103,4 @@ $('.js-datepicker').datepicker({
     {% endif %}
   </div>
 </div>
-
 {% endblock %}
