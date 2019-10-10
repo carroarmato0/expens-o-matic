@@ -63,8 +63,9 @@ $('.js-datepicker').datepicker({
         <th scope="col">Name</th>
         <th scope="col">Description</th>
         <th scope="col">Amount</th>
-        <th scope="col">Approved</th>
+        <th scope="col">Approval</th>
         <th scope="col">Reimbursed</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -75,15 +76,25 @@ $('.js-datepicker').datepicker({
         <td>{{expense.description}}</td>
         <td>{{expense.amount}}</td>
         {% if expense.approved is empty %}
-        <td>pending</td>
+          <td><span class="badge badge-info">Pending</span></td>
+          {% elseif expense.approved == 1 %}
+            <td><span class="badge badge-success">Approved</span></td>
         {% else %}
-        <td>{{expense.approved}}</td>
+          <td><span class="badge badge-danger">Rejected</span></td>
         {% endif %}
         {% if expense.reimbursed == 0 %}
-        <td>Not Yet</td>
+        <td><span class="badge badge-secondary">Not paid</span></td>
         {% else %}
-        <td>Paid</td>
+          <td><span class="badge badge-success">Reimbursed</span></td>
         {% endif %}
+        <td>
+          <a class="btn btn-primary btn-sm" href="/expense/{{ expense.id }}" role="button">Show</a>
+          {% if expense.approved == 1 %}
+          <a class="btn btn-secondary disabled btn-sm" href="#" role="button">Delete</a>
+          {% else %}
+            <a class="btn btn-secondary btn-sm" href="/expense/{{ expense.id }}" role="button">Delete</a>
+            {% endif %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>
