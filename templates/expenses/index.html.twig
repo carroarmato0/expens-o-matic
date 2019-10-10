@@ -28,7 +28,7 @@ $('.js-datepicker').datepicker({
         {{ form_label(expenseForm.amount) }}
         <div class="input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text">€</span>
+            <span class="input-group-text">&euro;</span>
           </div>
           {% if expenseForm.amount.vars.errors|length > 0 %}
           {{ form_widget(expenseForm.amount, {'attr': {'class': 'form-control is-invalid'}}) }}
@@ -88,11 +88,11 @@ $('.js-datepicker').datepicker({
           <td><span class="badge badge-success">Reimbursed</span></td>
         {% endif %}
         <td>
-          <a class="btn btn-primary btn-sm" href="/expense/{{ expense.id }}" role="button">Show</a>
+          <a class="btn btn-info btn-sm" href="/expense/{{ expense.id }}" role="button">Show</a>
           {% if expense.approved == 1 %}
-          <a class="btn btn-secondary disabled btn-sm" href="#" role="button">Delete</a>
+          <a class="btn btn-primary disabled btn-sm" href="#" role="button">Delete</a>
           {% else %}
-            <a class="btn btn-secondary btn-sm" href="/expense/{{ expense.id }}" role="button">Delete</a>
+            <a class="btn btn-primary btn-sm" href="/expense/{{ expense.id }}/delete" role="button">Delete</a>
             {% endif %}
         </td>
       </tr>
