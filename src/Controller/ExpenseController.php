@@ -16,7 +16,7 @@
   class ExpenseController extends AbstractController {
 
     /**
-     * @Route("/")
+     * @Route("/", name="expense_overview")
      * @param Request $request
      * @return Response
      * @throws Exception
@@ -54,7 +54,7 @@
         // Perform the insert statements
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_expense_index');
+        return $this->redirectToRoute('expense_overview');
       }
 
       return $this->render('expenses/index.html.twig', array(
@@ -73,24 +73,24 @@
       // Fetch expense by id
       $my_expense = $expense_repository->find($id);
 
+      if (empty($my_expense)) {
+        return $this->redirectToRoute('expense_overview');
+      }
+
       return $this->render("expenses/show.html.twig", array(
         'expense' => $my_expense
       ));
     }
 
     /**
-     * @Route("/expense/{id}/delete", methods={"DELETE"})
+     * @Route("/expense/{id}/delete", methods={"DELETE"}, name = "expense_delete")
      * @param Request $request
      * @param $id
      * @return void
      */
     public function delete(Request $request, $id) {
-      // Get expense repository
-      $expense_repository = $this->getDoctrine()->getRepository(Expense::class);
       // Fetch expense by id
-      $my_expense = $expense_repository->find($id);
-
-      dump($my_expense);
+      $my_expense = $this->getDoctrine()->getRepository(Expense::class)->find($id);
 
       // Get the Entity Manager
       $entityManager = $this->getDoctrine()->getManager();
@@ -99,8 +99,7 @@
       // Perform the delete statements
       $entityManager->flush();
 
-      //$response = new Response();
-      //$response->send();
+      return $this->redirectToRoute('expense_overview');
     }
 
   }
