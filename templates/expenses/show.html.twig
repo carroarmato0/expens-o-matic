@@ -36,7 +36,7 @@ $('.js-datepicker').datepicker({
       </div>
       <div class="form-group">
         <label class="font-weight-bold">Amount</label>
-        <p>&euro; {{ expense.amount }}</p>
+        <p>&euro; {{ expense.amount | number_format(2) }}</p>
       </div>
       <div class="form-group">
         <label class="font-weight-bold">Date</label>
