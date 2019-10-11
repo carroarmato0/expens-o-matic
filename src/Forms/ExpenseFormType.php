@@ -17,6 +17,9 @@ class ExpenseFormType extends AbstractType {
     $builder
       ->add("name", TextType::class, [
         'label'      => 'Name',
+        'label_attr' => [
+          'class'         => 'font-weight-bold',
+        ],
         'attr'       => [
           'class'         => 'form-control',
           'autocomplete'  => 'off',
@@ -24,6 +27,9 @@ class ExpenseFormType extends AbstractType {
       ])
       ->add("description", TextType::class, [
         'label'      => 'Description',
+        'label_attr' => [
+          'class'         => 'font-weight-bold',
+        ],
         'attr'       => [
           'class'         => 'form-control',
           'autocomplete'  => 'off',
@@ -32,6 +38,9 @@ class ExpenseFormType extends AbstractType {
       ->add("amount", NumberType::class, [
         'label'      => 'Amount',
         'scale'      => 2,
+        'label_attr' => [
+          'class'         => 'font-weight-bold',
+        ],
         'attr'       => [
           'class'         => 'form-control',
           'autocomplete'  => 'off',
@@ -42,6 +51,9 @@ class ExpenseFormType extends AbstractType {
         'widget'  => 'single_text',
         'format'  => 'dd/MM/yyyy',
         'html5'   => false,
+        'label_attr' => [
+          'class'         => 'font-weight-bold',
+        ],
         'attr'    => [
           'class'         => 'js-datepicker form-control',
           'autocomplete'  => 'off',
@@ -50,6 +62,9 @@ class ExpenseFormType extends AbstractType {
       ])
       /**->add("expenseItems", FileType::class, [
         'label'      => 'Attachments',
+        'label_attr' => [
+        'class'         => 'font-weight-bold',
+        ],
         'attr'       => [
           'class' => 'form-control-file'
         ],

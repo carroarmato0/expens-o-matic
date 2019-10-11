@@ -25,21 +25,21 @@ $('.js-datepicker').datepicker({
     {% else %}
 
     <div id="expenses" class="jumbotron p-4">
-      <h2>My Expense</h2>
+      <legend>My Expense</legend>
       <div class="form-group">
-        <label>Name</label>
+        <label class="font-weight-bold">Name</label>
         <p>{{ expense.name }}</p>
       </div>
       <div class="form-group">
-        <label>Description</label>
+        <label class="font-weight-bold">Description</label>
         <p>{{ expense.description }}</p>
       </div>
       <div class="form-group">
-        <label>Amount</label>
+        <label class="font-weight-bold">Amount</label>
         <p>&euro; {{ expense.amount }}</p>
       </div>
       <div class="form-group">
-        <label>Date</label>
+        <label class="font-weight-bold">Date</label>
         <p>{{ expense.date | date("d/m/Y") }}</p>
       </div>
       <div class="form-group">
