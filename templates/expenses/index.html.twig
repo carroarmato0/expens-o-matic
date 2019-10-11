@@ -55,7 +55,9 @@
     <div class="col-xl-8 container-fluid p-3">
       <h2>My Expenses</h2>
       {% if expenses is empty %}
-        <p>You have no expenses yet. Time to make some ;)</p>
+        <div class="alert alert-secondary">
+          <p class="mb-0">You have no expenses yet. Time to make some ;)</p>
+        </div>
       {% else %}
         <div class="table-responsive">
           <table id="expenses" class="table">
@@ -65,8 +67,7 @@
               <th scope="col">Name</th>
               <th scope="col">Description</th>
               <th scope="col">Amount</th>
-              <th scope="col">Approval</th>
-              <th scope="col">Reimbursed</th>
+              <th scope="col">Status</th>
               <th scope="col"></th>
             </tr>
             </thead>
@@ -77,17 +78,16 @@
                 <td>{{expense.name}}</td>
                 <td>{{expense.description}}</td>
                 <td>{{expense.amount}}</td>
-                {% if expense.approved is empty %}
-                  <td><span class="badge badge-info">Pending</span></td>
-                {% elseif expense.approved == 1 %}
-                  <td><span class="badge badge-success">Approved</span></td>
+                {% if expense.reimbursed == 1 %}
+                  <td><span class="badge badge-success">Paid</span></td>
                 {% else %}
-                  <td><span class="badge badge-danger">Rejected</span></td>
-                {% endif %}
-                {% if expense.reimbursed == 0 %}
-                  <td><span class="badge badge-secondary">Not paid</span></td>
-                {% else %}
-                  <td><span class="badge badge-success">Reimbursed</span></td>
+                  {% if expense.approved is empty %}
+                    <td><span class="badge badge-info">Pending</span></td>
+                  {% elseif expense.approved == 1 %}
+                    <td><span class="badge badge-success">Approved</span></td>
+                  {% else %}
+                    <td><span class="badge badge-danger">Rejected</span></td>
+                  {% endif %}
                 {% endif %}
                 <td>
                   <a class="btn btn-info btn-sm" href="/expense/{{ expense.id }}" role="button">Show</a>
