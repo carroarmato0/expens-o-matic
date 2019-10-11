@@ -6,6 +6,7 @@
 
 {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" crossorigin="anonymous"></script>
+<script src="/js/main.js"></script>
 <script>
 $('.js-datepicker').datepicker({
   format: 'dd/mm/yyyy'
@@ -24,14 +25,14 @@ $('.js-datepicker').datepicker({
     {% else %}
     <h2>My Expense</h2>
 
-    <div class="jumbotron">
+    <div id="expenses" class="jumbotron">
       <h1 class="display-3">{{ expense.name }}</h1>
       <p class="lead">{{ expense.description }}</p>
       <hr class="my-4">
       <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
       <p class="lead">
         <a class="btn btn-primary btn-lg" href="/expense/{{ expense.id }}/edit" role="button">Edit</a>
-        <a class="btn btn-primary btn-lg" href="/expense/{{ expense.id }}/delete" role="button">Delete</a>
+        <a class="btn btn-primary btn-lg delete-expense" data-id="{{ expense.id }}" href="#" role="button">Delete</a>
       </p>
     </div>
 
