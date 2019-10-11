@@ -62,7 +62,8 @@ Migrating up to 20191007184657 from 0
   - [ ] Adding multiple files while not being reviewed
   - [ ] Removing uploaded files while not being reviewed
   - [ ] Client-Side size reduction of to-be-uploaded images
-- [ ] Deleting Expenses
+- [x] Deleting Expenses
+- [x] Editing Expenses
 - [ ] Updating Expenses while not being reviewed
 - [ ] Global view of my expenses, grouped by year/month
 - [ ] Interface for approver role
