@@ -43,6 +43,7 @@ $('.js-datepicker').datepicker({
         <p>{{ expense.date | date("d/m/Y") }}</p>
       </div>
       <div class="form-group">
+        <a class="btn btn-info btn-lg" href="/" role="button">Back</a>
         <a class="btn btn-warning btn-lg" href="/expense/{{ expense.id }}/edit" role="button">Edit</a>
         <a class="btn btn-primary btn-lg delete-expense" data-id="{{ expense.id }}" href="#" role="button">Delete</a>
       </div>
