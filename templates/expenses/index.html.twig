@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
 {% endblock %}
 
 {% block javascripts %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" crossorigin="anonymous"></script>
-<script src="/js/main.js"></script>
-<script>
-$('.js-datepicker').datepicker({
-  format: 'dd/mm/yyyy'
-});
-</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" crossorigin="anonymous"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    $('.js-datepicker').datepicker({
+      format: 'dd/mm/yyyy'
+    });
+  </script>
 {% endblock %}
 
 {% block body %}
-<div class="row">
-  <div class="col-xl-3 jumbotron p-4">
-    {{ form_start(expenseForm) }}
+  <div class="row">
+    <div class="col-xl-3 jumbotron p-4">
+      {{ form_start(expenseForm) }}
       <legend>New expense</legend>
       <div class="form-group">
         {{ form_row(expenseForm.name) }}
@@ -32,9 +32,9 @@ $('.js-datepicker').datepicker({
             <span class="input-group-text">&euro;</span>
           </div>
           {% if expenseForm.amount.vars.errors|length > 0 %}
-          {{ form_widget(expenseForm.amount, {'attr': {'class': 'form-control is-invalid'}}) }}
+            {{ form_widget(expenseForm.amount, {'attr': {'class': 'form-control is-invalid'}}) }}
           {% else %}
-          {{ form_widget(expenseForm.amount) }}
+            {{ form_widget(expenseForm.amount) }}
           {% endif %}
         </div>
       </div>
@@ -49,58 +49,60 @@ $('.js-datepicker').datepicker({
       </div>
       #}
       {{ form_row(expenseForm.submit) }}
-    {{ form_end(expenseForm) }}
-  </div>
+      {{ form_end(expenseForm) }}
+    </div>
 
-  <div class="col-xl-8 container-fluid p-3">
-    <h2>My Expenses</h2>
-    {% if expenses is empty %}
-    <p>You have no expenses yet. Time to make some ;)</p>
-    {% else %}
-    <table id="expenses" class="table">
-    <thead>
-      <tr>
-        <th scope="col">Date</th>
-        <th scope="col">Name</th>
-        <th scope="col">Description</th>
-        <th scope="col">Amount</th>
-        <th scope="col">Approval</th>
-        <th scope="col">Reimbursed</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for expense in expenses %}
-      <tr>
-        <th scope="row">{{ expense.date|date("Y-m-d")}}</th>
-        <td>{{expense.name}}</td>
-        <td>{{expense.description}}</td>
-        <td>{{expense.amount}}</td>
-        {% if expense.approved is empty %}
-          <td><span class="badge badge-info">Pending</span></td>
-          {% elseif expense.approved == 1 %}
-            <td><span class="badge badge-success">Approved</span></td>
-        {% else %}
-          <td><span class="badge badge-danger">Rejected</span></td>
-        {% endif %}
-        {% if expense.reimbursed == 0 %}
-        <td><span class="badge badge-secondary">Not paid</span></td>
-        {% else %}
-          <td><span class="badge badge-success">Reimbursed</span></td>
-        {% endif %}
-        <td>
-          <a class="btn btn-info btn-sm" href="/expense/{{ expense.id }}" role="button">Show</a>
-          {% if expense.approved == 1 %}
-          <a class="btn btn-primary disabled btn-sm" href="#" role="button">Delete</a>
-          {% else %}
-          <a class="btn btn-primary btn-sm delete-expense" href="#" data-id="{{ expense.id }}" role="button">Delete</a>
-          {% endif %}
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-    {% endif %}
+    <div class="col-xl-8 container-fluid p-3">
+      <h2>My Expenses</h2>
+      {% if expenses is empty %}
+        <p>You have no expenses yet. Time to make some ;)</p>
+      {% else %}
+        <div class="table-responsive">
+          <table id="expenses" class="table">
+            <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Approval</th>
+              <th scope="col">Reimbursed</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for expense in expenses %}
+              <tr>
+                <th scope="row">{{ expense.date|date("Y-m-d")}}</th>
+                <td>{{expense.name}}</td>
+                <td>{{expense.description}}</td>
+                <td>{{expense.amount}}</td>
+                {% if expense.approved is empty %}
+                  <td><span class="badge badge-info">Pending</span></td>
+                {% elseif expense.approved == 1 %}
+                  <td><span class="badge badge-success">Approved</span></td>
+                {% else %}
+                  <td><span class="badge badge-danger">Rejected</span></td>
+                {% endif %}
+                {% if expense.reimbursed == 0 %}
+                  <td><span class="badge badge-secondary">Not paid</span></td>
+                {% else %}
+                  <td><span class="badge badge-success">Reimbursed</span></td>
+                {% endif %}
+                <td>
+                  <a class="btn btn-info btn-sm" href="/expense/{{ expense.id }}" role="button">Show</a>
+                  {% if expense.approved == 1 %}
+                    <a class="btn btn-primary disabled btn-sm" href="#" role="button">Delete</a>
+                  {% else %}
+                    <a class="btn btn-primary btn-sm delete-expense" href="#" data-id="{{ expense.id }}" role="button">Delete</a>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    </div>
   </div>
-</div>
 {% endblock %}
