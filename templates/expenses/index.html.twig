@@ -59,48 +59,27 @@
           <p class="mb-0">You have no expenses yet. Time to make some ;)</p>
         </div>
       {% else %}
-        <div class="table-responsive">
-          <table id="expenses" class="table">
-            <thead>
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Name</th>
-              <th scope="col">Description</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Status</th>
-              <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for expense in expenses %}
-              <tr>
-                <th scope="row">{{ expense.date|date("Y-m-d")}}</th>
-                <td>{{expense.name}}</td>
-                <td>{{expense.description}}</td>
-                <td>{{expense.amount}}</td>
-                {% if expense.reimbursed == 1 %}
-                  <td><span class="badge badge-success">Paid</span></td>
+        <div class="list-group">
+          {% for expense in expenses %}
+            <a href="/expense/{{ expense.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ expense.name }}</h5>
+                <small>€ {{ expense.amount }}</small>
+              </div>
+              <p class="mb-1">{{ expense.date | date("Y-m-d") }}</p>
+              {% if expense.reimbursed == 1 %}
+                <span class="badge badge-success">Paid</span>
+              {% else %}
+                {% if expense.approved is empty %}
+                  <span class="badge badge-info">Pending</span>
+                {% elseif expense.approved == 1 %}
+                  <span class="badge badge-success">Approved</span>
                 {% else %}
-                  {% if expense.approved is empty %}
-                    <td><span class="badge badge-info">Pending</span></td>
-                  {% elseif expense.approved == 1 %}
-                    <td><span class="badge badge-success">Approved</span></td>
-                  {% else %}
-                    <td><span class="badge badge-danger">Rejected</span></td>
-                  {% endif %}
+                  <span class="badge badge-danger">Rejected</span>
                 {% endif %}
-                <td>
-                  <a class="btn btn-info btn-sm" href="/expense/{{ expense.id }}" role="button">Show</a>
-                  {% if expense.approved == 1 %}
-                    <a class="btn btn-primary disabled btn-sm" href="#" role="button">Delete</a>
-                  {% else %}
-                    <a class="btn btn-primary btn-sm delete-expense" href="#" data-id="{{ expense.id }}" role="button">Delete</a>
-                  {% endif %}
-                </td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
+              {% endif %}
+            </a>
+          {% endfor %}
         </div>
       {% endif %}
     </div>
