@@ -19,12 +19,6 @@ class Expense
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="expenses")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user_id;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $submit_date;
@@ -64,6 +58,12 @@ class Expense
      */
     private $expenseItems;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="expenses")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user_id;
+
     public function __construct()
     {
         $this->expenseItems = new ArrayCollection();
@@ -72,18 +72,6 @@ class Expense
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUserId(): ?User
-    {
-        return $this->user_id;
-    }
-
-    public function setUserId(?User $user_id): self
-    {
-        $this->user_id = $user_id;
-
-        return $this;
     }
 
     public function getSubmitDate(): ?\DateTimeInterface
@@ -197,6 +185,18 @@ class Expense
                 $expenseItem->setExpenseId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(?User $user_id): self
+    {
+        $this->user_id = $user_id;
 
         return $this;
     }
