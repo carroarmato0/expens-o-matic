@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}expens-o-matic Expenses{% endblock %}
+
 {% block stylesheets %}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+  {{ parent() }}
 {% endblock %}
 
 {% block javascripts %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" crossorigin="anonymous"></script>
-  <script src="/js/main.js"></script>
+  {{ parent() }}
+  <script src="/js/delete-expense.js"></script>
   <script>
     $('.js-datepicker').datepicker({
       format: 'dd/mm/yyyy'

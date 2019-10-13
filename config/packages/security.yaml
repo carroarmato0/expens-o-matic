@@ -18,6 +18,13 @@ security:
             security: false
         main:
             anonymous: true
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -28,5 +35,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-    # - { path: ^/admin, roles: ROLE_ADMIN }
-    # - { path: ^/profile, roles: ROLE_USER }
+        # Allow Logged-in and Anonymous users to the login page
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # All other pages require the user to be authenticated, even by session cookie
+        - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }

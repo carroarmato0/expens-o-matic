@@ -9,10 +9,14 @@
   use Symfony\Component\HttpFoundation\Response;
   use Symfony\Component\Routing\Annotation\Route;
   use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+  use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
   use App\Entity\Expense;
   use App\Entity\User;
 
+  /**
+   * @IsGranted("ROLE_USER")
+   */
   class ExpenseController extends AbstractController {
 
     /**
