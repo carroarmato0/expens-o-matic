@@ -12,7 +12,6 @@
   use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
   use App\Entity\Expense;
-  use App\Entity\User;
 
   /**
    * @IsGranted("ROLE_USER")
