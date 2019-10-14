@@ -26,14 +26,14 @@
      * @throws Exception
      */
     public function index(Request $request) {
-      // Create my User object, we assume we are Admin for now
-      $admin = $this->getDoctrine()->getRepository(User::class)->find(1);
+      // Get User object from Session
+      $user = $this->getUser();
 
       // Get expense repository
       $expense_repository = $this->getDoctrine()->getRepository(Expense::class);
       // Fetch user expenses ordered by date
       $my_expenses = $expense_repository->findBy(
-        [ 'user_id' => $admin->getId() ],
+        [ 'user_id' => $user->getId() ],
         [ 'date'    => 'DESC'          ]
       );
 
@@ -47,7 +47,7 @@
       if ($expenseForm->isSubmitted() && $expenseForm->isValid()) {
         /** @var Expense $expense */
         $expense = $expenseForm->getData();
-        $expense->setUserId($admin);
+        $expense->setUserId($user);
         $expense->setSubmitDate(new \DateTime("now"));
 
         // Get the Entity Manager
