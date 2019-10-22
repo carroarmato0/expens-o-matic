@@ -4,4 +4,42 @@
 
 {% block body %}
 
+<div class="container">
+
+  <div class="container-fluid p-4">
+    <h2>Users</h2>
+
+    {{ form_start(userForm) }}
+    {{ form_end(userForm) }}
+
+    {% if users is empty %}
+      <div class="alert alert-secondary">
+        <p class="mb-0">There are no users. How weird :/</p>
+      </div>
+    {% else %}
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <th scope="row">{{ user.name }}</th>
+            <td>{{ user.surname }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.roles | json_encode() }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
