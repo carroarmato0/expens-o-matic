@@ -4,97 +4,95 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container-fluid p-4">
+  
+  <h2>Users</h2>
 
-  <div class="container-fluid p-4">
-
-    <h2>Users</h2>
-
-    <div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content p-4">
-          <h3>Add User</h3>
-          {{ form_start(userForm) }}
-          <div class="form-group">
-            {{ form_label(userForm.name) }}
-            {{ form_errors(userForm.name) }}
-            {{ form_widget(userForm.name) }}
-          </div>
-          <div class="form-group">
-            {{ form_label(userForm.surname) }}
-            {{ form_errors(userForm.surname) }}
-            {{ form_widget(userForm.surname) }}
-          </div>
-          <div class="form-group">
-            {{ form_label(userForm.email) }}
-            {{ form_errors(userForm.email) }}
-            {{ form_widget(userForm.email) }}
-          </div>
-          <div class="form-group">
-            {{ form_label(userForm.password) }}
-            {{ form_errors(userForm.password) }}
-            {{ form_widget(userForm.password) }}
-          </div>
-          <div class="form-group">
-            {{ form_label(userForm.roles) }}
-            {{ form_widget(userForm.roles) }}
-          </div>
-          <div class="form-group">
-            {{ form_label(userForm.submit) }}
-            {{ form_widget(userForm.submit) }}
-          </div>
-          {{ form_end(userForm) }}
+  <div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content p-4">
+        <h3>Add User</h3>
+        {{ form_start(userForm) }}
+        <div class="form-group">
+          {{ form_label(userForm.name) }}
+          {{ form_errors(userForm.name) }}
+          {{ form_widget(userForm.name) }}
         </div>
+        <div class="form-group">
+          {{ form_label(userForm.surname) }}
+          {{ form_errors(userForm.surname) }}
+          {{ form_widget(userForm.surname) }}
+        </div>
+        <div class="form-group">
+          {{ form_label(userForm.email) }}
+          {{ form_errors(userForm.email) }}
+          {{ form_widget(userForm.email) }}
+        </div>
+        <div class="form-group">
+          {{ form_label(userForm.password) }}
+          {{ form_errors(userForm.password) }}
+          {{ form_widget(userForm.password) }}
+        </div>
+        <div class="form-group">
+          {{ form_label(userForm.roles) }}
+          {{ form_widget(userForm.roles) }}
+        </div>
+        <div class="form-group">
+          {{ form_label(userForm.submit) }}
+          {{ form_widget(userForm.submit) }}
+        </div>
+        {{ form_end(userForm) }}
       </div>
     </div>
-
-    <div class="btn-group btn-group-toggle mt-4 mb-4">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createmodel">Add User</button>
-    </div>
-
-    {% if users is empty %}
-      <div class="alert alert-secondary">
-        <p class="mb-0">There are no users. How weird :/</p>
-      </div>
-    {% else %}
-
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Surname</th>
-            <th scope="col">Email</th>
-            <th scope="col">Role</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for user in users %}
-          <tr>
-            <th scope="row">{{ user.name }}</th>
-            <td>{{ user.surname }}</td>
-            <td>{{ user.email }}</td>
-            <td>
-              {% if 'ROLE_ADMIN' in user.roles %}
-              Admin
-              {% elseif 'ROLE_APPROVER' in user.roles %}
-              Approver
-              {% elseif 'ROLE_USER' in user.roles %}
-              User
-              {% else %}
-              Unknown
-              {% endif %}
-            </td>
-            <td>
-              <a class="btn btn-secondary btn-sm" href="#" role="button">Edit</a>
-              <a class="btn btn-secondary btn-sm" href="#" role="button">Lock</a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-
-    {% endif %}
   </div>
+
+  <div class="btn-group btn-group-toggle mt-4 mb-4">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createmodel">Add User</button>
+  </div>
+
+  {% if users is empty %}
+    <div class="alert alert-secondary">
+      <p class="mb-0">There are no users. How weird :/</p>
+    </div>
+  {% else %}
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Surname</th>
+          <th scope="col">Email</th>
+          <th scope="col">Role</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <th scope="row">{{ user.name }}</th>
+          <td>{{ user.surname }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            {% if 'ROLE_ADMIN' in user.roles %}
+            Admin
+            {% elseif 'ROLE_APPROVER' in user.roles %}
+            Approver
+            {% elseif 'ROLE_USER' in user.roles %}
+            User
+            {% else %}
+            Unknown
+            {% endif %}
+          </td>
+          <td>
+            <a class="btn btn-secondary btn-sm" href="#" role="button">Edit</a>
+            <a class="btn btn-secondary btn-sm" href="#" role="button">Lock</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  {% endif %}
 </div>
+
 {% endblock %}
