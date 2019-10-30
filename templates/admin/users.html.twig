@@ -36,6 +36,10 @@
             {{ form_widget(userForm.password) }}
           </div>
           <div class="form-group">
+            {{ form_label(userForm.roles) }}
+            {{ form_widget(userForm.roles) }}
+          </div>
+          <div class="form-group">
             {{ form_label(userForm.submit) }}
             {{ form_widget(userForm.submit) }}
           </div>
@@ -70,7 +74,17 @@
             <th scope="row">{{ user.name }}</th>
             <td>{{ user.surname }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.roles | json_encode() }}</td>
+            <td>
+              {% if 'ROLE_ADMIN' in user.roles %}
+              Admin
+              {% elseif 'ROLE_APPROVER' in user.roles %}
+              Approver
+              {% elseif 'ROLE_USER' in user.roles %}
+              User
+              {% else %}
+              Unknown
+              {% endif %}
+            </td>
             <td>
               <a class="btn btn-secondary btn-sm" href="#" role="button">Edit</a>
               <a class="btn btn-secondary btn-sm" href="#" role="button">Lock</a>
