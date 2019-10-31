@@ -5,41 +5,48 @@
 {% block body %}
 
 <div class="container-fluid p-4">
-  
+
   <h2>Users</h2>
 
-  <div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal fade" id="adduserModal" tabindex="-1" role="dialog" aria-labelledby="adduserModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content p-4">
-        <h3>Add User</h3>
+        <div class="modal-header">
+          <h5 class="modal-title">Add User</h5>
+        </div>
         {{ form_start(userForm) }}
-        <div class="form-group">
-          {{ form_label(userForm.name) }}
-          {{ form_errors(userForm.name) }}
-          {{ form_widget(userForm.name) }}
+        <div class="modal-body">
+          <div class="form-group">
+            {{ form_label(userForm.name) }}
+            {{ form_errors(userForm.name) }}
+            {{ form_widget(userForm.name) }}
+          </div>
+          <div class="form-group">
+            {{ form_label(userForm.surname) }}
+            {{ form_errors(userForm.surname) }}
+            {{ form_widget(userForm.surname) }}
+          </div>
+          <div class="form-group">
+            {{ form_label(userForm.email) }}
+            {{ form_errors(userForm.email) }}
+            {{ form_widget(userForm.email) }}
+          </div>
+          <div class="form-group">
+            {{ form_label(userForm.password) }}
+            {{ form_errors(userForm.password) }}
+            {{ form_widget(userForm.password) }}
+          </div>
+          <div class="form-group">
+            {{ form_label(userForm.roles) }}
+            {{ form_widget(userForm.roles) }}
+          </div>
         </div>
-        <div class="form-group">
-          {{ form_label(userForm.surname) }}
-          {{ form_errors(userForm.surname) }}
-          {{ form_widget(userForm.surname) }}
-        </div>
-        <div class="form-group">
-          {{ form_label(userForm.email) }}
-          {{ form_errors(userForm.email) }}
-          {{ form_widget(userForm.email) }}
-        </div>
-        <div class="form-group">
-          {{ form_label(userForm.password) }}
-          {{ form_errors(userForm.password) }}
-          {{ form_widget(userForm.password) }}
-        </div>
-        <div class="form-group">
-          {{ form_label(userForm.roles) }}
-          {{ form_widget(userForm.roles) }}
-        </div>
-        <div class="form-group">
-          {{ form_label(userForm.submit) }}
-          {{ form_widget(userForm.submit) }}
+        <div class="modal-footer">
+          <div class="form-group">
+            {{ form_label(userForm.submit) }}
+            {{ form_widget(userForm.submit) }}
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
         </div>
         {{ form_end(userForm) }}
       </div>
@@ -47,7 +54,7 @@
   </div>
 
   <div class="btn-group btn-group-toggle mt-4 mb-4">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createmodel">Add User</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adduserModal">Add User</button>
   </div>
 
   {% if users is empty %}
