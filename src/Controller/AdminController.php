@@ -58,4 +58,52 @@ class AdminController extends AbstractController
         'users'     => $users,
       ));
     }
+
+  /**
+   * @Route("/admin/users/{id}/edit", name="admin_user_edit")
+   * @param Request $request
+   * @param $id
+   * @return Response
+   * @throws Exception
+   */
+  public function edit(Request $request, $id) {
+    // Get user repository
+    $user_repository = $this->getDoctrine()->getRepository(User::class);
+    // Fetch user by id
+    $user = $user_repository->find($id);
+
+    // Load form to edit a user
+    $userForm = $this->createForm(UserFormType::class, $user);
+
+    // Load Request information
+    $userForm->handleRequest($request);
+
+    // Check if the User Form was submitted and is valid
+    if ($userForm->isSubmitted() && $userForm->isValid()) {
+      /** @var User $user */
+      $user = $userForm->getData();
+
+      # If the password field has content -> hash the plaintext
+      if (!empty($user->getPassword())) {
+        // Use NativePasswordEncoder to hash the password
+        $password_encoder = new NativePasswordEncoder();
+        $user_password = $password_encoder->encodePassword($user->getPassword(), "");
+        $user->setPassword($user_password);
+      }
+
+      // Get the Entity Manager
+      $entityManager = $this->getDoctrine()->getManager();
+      // Prepare entity to be save
+      $entityManager->persist($user);
+      // Perform the insert statements
+      $entityManager->flush();
+
+      return $this->redirectToRoute('admin_users');
+    }
+
+    return $this->render("admin/user_edit.html.twig", array(
+      'userForm' => $userForm->createView(),
+    ));
+  }
+
 }
