@@ -27,7 +27,7 @@
         <div class="form-group">
           {{ form_label(userForm.password) }}
           {{ form_errors(userForm.password) }}
-          {{ form_widget(userForm.password) }}
+          {{ form_widget(userForm.password, { 'required': false }) }}
         </div>
         <div class="form-group">
           {{ form_label(userForm.roles) }}

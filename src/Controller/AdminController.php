@@ -72,6 +72,9 @@ class AdminController extends AbstractController
     // Fetch user by id
     $user = $user_repository->find($id);
 
+    // Same the original password of the user for later
+    $userOriginalPassword = $user->getPassword();
+
     // Load form to edit a user
     $userForm = $this->createForm(UserFormType::class, $user);
 
@@ -80,21 +83,25 @@ class AdminController extends AbstractController
 
     // Check if the User Form was submitted and is valid
     if ($userForm->isSubmitted() && $userForm->isValid()) {
-      /** @var User $user */
-      $user = $userForm->getData();
+      /** @var User $user
+       * @var User $updated_user
+       */
+      $updated_user = $userForm->getData();
 
       # If the password field has content -> hash the plaintext
-      if (!empty($user->getPassword())) {
+      if (!empty($updated_user->getPassword())) {
         // Use NativePasswordEncoder to hash the password
         $password_encoder = new NativePasswordEncoder();
         $user_password = $password_encoder->encodePassword($user->getPassword(), "");
-        $user->setPassword($user_password);
+        $updated_user->setPassword($user_password);
+      } else {
+        $updated_user->setPassword($userOriginalPassword);
       }
 
       // Get the Entity Manager
       $entityManager = $this->getDoctrine()->getManager();
       // Prepare entity to be save
-      $entityManager->persist($user);
+      $entityManager->persist($updated_user);
       // Perform the insert statements
       $entityManager->flush();
 

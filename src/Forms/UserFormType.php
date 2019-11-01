@@ -59,6 +59,7 @@ class UserFormType extends AbstractType
           'class'         => 'form-control',
           'autocomplete'  => 'off',
         ],
+        'empty_data'  => '',
       ])
       ->add("roles", ChoiceType::class, [
           'label'   => 'Role',
