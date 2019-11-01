@@ -72,10 +72,10 @@ Migrating up to 20191007184657 from 0
   - [ ] Reopen Expenses for modification
   - [ ] Flag expenses as paidout
 - [ ] Accounting system
-  - [ ] Classic account/password login
+  - [x] Classic account/password login
   - [ ] LDAP/OAuth
   - [ ] Profile page / Change Password / Gravatar
 - [ ] Admin Interface
   - [ ] Adding/Removing/Locking Accounts
-  - [ ] Manage Role Assignments
+  - [x] Manage Role Assignments
   - [ ] Timezone selection
