@@ -84,6 +84,8 @@
                   Admin
                 {% elseif 'ROLE_APPROVER' in user.roles %}
                   Approver
+                {% elseif 'ROLE_ACCOUNTANT' in user.roles %}
+                  Accountant
                 {% elseif 'ROLE_USER' in user.roles %}
                   User
                 {% else %}

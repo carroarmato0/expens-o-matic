@@ -50,5 +50,6 @@ security:
 
     # Add role inheritance so users only need one role assigned to them
     role_hierarchy:
-        ROLE_ADMIN: [ROLE_APPROVER, ROLE_USER]
-        ROLE_APPROVER: ROLE_USER
+        ROLE_ADMIN: [ROLE_APPROVER, ROLE_ACCOUNTANT, ROLE_USER]
+        ROLE_APPROVER: [ROLE_ACCOUNTANT, ROLE_USER]
+        ROLE_ACCOUNTANT: [ROLE_USER]

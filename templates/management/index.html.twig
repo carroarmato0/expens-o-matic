@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}expens-o-matic Management{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid col-xl-8 p-4">
+
+  <div id="stats" class="row">
+    <p>Stats!</p>
+  </div>
+
+  <div id="expenses_pending" class="row">
+    <h3 class="mb-3">Pending Expenses</h3>
+    {% if pending_expenses is empty %}
+    <div class="container-fluid alert alert-secondary">
+      <p class="mb-0">There are no pending expenses</p>
+    </div>
+    {% else %}
+    <div class="list-group container-fluid">
+      {% for expense in pending_expenses %}
+        <a href="/expense/{{ expense.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ expense.name }}</h5>
+            <small>€ {{ expense.amount | number_format(2) }}</small>
+          </div>
+          <p class="mb-1">{{ expense.date | date("Y-m-d") }}</p>
+          {% if expense.reimbursed == 1 %}
+            <span class="badge badge-success">Paid</span>
+          {% else %}
+            {% if expense.approved is empty %}
+              <span class="badge badge-info">Pending</span>
+            {% elseif expense.approved == 1 %}
+              <span class="badge badge-success">Approved</span>
+            {% else %}
+              <span class="badge badge-danger">Rejected</span>
+            {% endif %}
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+
+    {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}

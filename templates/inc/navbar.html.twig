@@ -13,6 +13,11 @@
       <li class="nav-item {% if app.request.attributes.get( '_route' ) == 'account' %}active{% endif %}">
         <a class="nav-link" href="/account">Account</a>
       </li>
+      {% if is_granted('ROLE_ACCOUNTANT') %}
+      <li class="nav-item {% if app.request.attributes.get( '_route' ) == 'management' %}active{% endif %}">
+        <a class="nav-link" href="/management">Management</a>
+      </li>
+      {% endif %}
       {% if is_granted('ROLE_ADMIN') %}
       <li class="nav-item dropdown {% if app.request.attributes.get( '_route' ) starts with 'admin' %}active{% endif %}">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -22,7 +27,6 @@
           <a class="dropdown-item" href="/admin/users">Users</a>
         </div>
       </li>
-
       {% endif %}
       <li class="nav-item">
         <a class="nav-link" href="/logout">Logout</a>

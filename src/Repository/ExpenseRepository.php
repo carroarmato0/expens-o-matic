@@ -18,7 +18,6 @@ class ExpenseRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Expense::class);
     }
-
     // /**
     //  * @return Expense[] Returns an array of Expense objects
     //  */

@@ -75,9 +75,10 @@ class UserFormType extends AbstractType
             'class'         => 'font-weight-bold',
           ],
           'choices' => array(
-            'Admin'     => 'ROLE_ADMIN',
-            'Approver'  => 'ROLE_APPROVER',
-            'User'      => 'ROLE_USER',
+            'Admin'       => 'ROLE_ADMIN',
+            'Approver'    => 'ROLE_APPROVER',
+            'Accountant'  => 'ROLE_ACCOUNTANT',
+            'User'        => 'ROLE_USER',
           ),
           'data' => $userRole,
         ]
