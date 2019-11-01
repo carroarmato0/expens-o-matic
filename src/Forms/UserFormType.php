@@ -19,6 +19,14 @@ class UserFormType extends AbstractType
 
   public function buildForm(FormBuilderInterface $builder, array $options) {
 
+    // If the form doesn't container a User already, default role choice to ROLE_USER
+    if (empty($builder->getData())) {
+      $userRole = "ROLE_USER";
+    } else {
+      // Extract the role of the user to be set as default choice
+      $userRole = $builder->getData()->getRoles()[0];
+    }
+
     $builder
       ->add('name', TextType::class, [
         'label'      => 'Name',
@@ -71,7 +79,7 @@ class UserFormType extends AbstractType
             'Approver'  => 'ROLE_APPROVER',
             'User'      => 'ROLE_USER',
           ),
-          'data' => 'ROLE_USER',
+          'data' => $userRole,
         ]
       )
       ->add("submit", SubmitType::class, [
