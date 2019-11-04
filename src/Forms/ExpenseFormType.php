@@ -11,6 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Date;
 
 class ExpenseFormType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
@@ -55,9 +58,15 @@ class ExpenseFormType extends AbstractType {
           'class'         => 'font-weight-bold',
         ],
         'attr'    => [
-          'class'         => 'js-datepicker form-control',
-          'autocomplete'  => 'off',
-          'placeholder'   => date('d/m/Y'),
+          'class'              => 'js-datepicker form-control',
+          'autocomplete'       => 'off',
+          'placeholder'        => date('d/m/Y'),
+          'data-date-end-date' => '0d',
+        ],
+        'constraints' => [
+          new NotBlank(),
+          new Date(),
+          new LessThanOrEqual('today'),
         ],
       ])
       /**->add("expenseItems", FileType::class, [
