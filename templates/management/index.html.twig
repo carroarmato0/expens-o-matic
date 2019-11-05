@@ -2,12 +2,82 @@
 
 {% block title %}expens-o-matic Management{% endblock %}
 
+{% block javascripts %}
+  {{ parent() }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+  <script>
+    var ctx = document.getElementById('statsChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December'
+            ],
+            datasets: [{
+                label: 'Expenses',
+                {% if expenses_stats is not empty %}
+                  data: [
+                  {% for month in 1..12 %}
+                      {% if expenses_stats[month] is defined %}
+                      {{ expenses_stats[month] }},
+                      {% else %}
+                      0,
+                      {% endif %}
+                  {% endfor %}
+                ],
+                backgroundColor: [
+                  {% for month in 1..12 %}
+                    'rgba(54, 162, 235, 0.2)',
+                  {% endfor %}
+                ],
+                borderColor: [
+                  {% for month in 1..12 %}
+                    'rgba(54, 162, 235, 1)',
+                  {% endfor %}
+                ],
+                {% endif %}
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                yAxis: [{
+                   ticks: {
+                       min: 0,
+                       beginAtZero: true,
+                   },
+                   scaleLabel: {
+                       display: true,
+                       labelString: "Amount",
+                   }
+                }],
+            },
+            legend: {
+                display: false,
+            },
+        }
+    });
+  </script>
+{% endblock %}
+
 {% block body %}
 
 <div class="container-fluid col-xl-8 p-4">
 
   <div id="stats" class="row">
-    <p>Stats!</p>
+    <canvas id="statsChart" width="400" height="100"></canvas>
   </div>
 
   <div id="expenses_pending" class="row">

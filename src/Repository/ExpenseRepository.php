@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Expense;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\DBAL\FetchMode;
 
 /**
  * @method Expense|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,28 @@ class ExpenseRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Expense::class);
+    }
+
+  /**
+   * @param $year string The year from which monthly expense totals are summed up
+   * @param $approved bool Only show the approved expenses
+   * @return mixed[]
+   * @throws \Doctrine\DBAL\DBALException
+   */
+    public function getMonthlyTotalExpenses($year, $approved = true) {
+      $conn = $this->getEntityManager()->getConnection();
+      $sql = '
+        SELECT MONTH(date) as month, ROUND(SUM(amount),2) as amount
+        FROM expense
+        WHERE approved IS NULL and YEAR(date) = :year
+        GROUP BY YEAR(date),MONTH(date)
+      ';
+
+      $statement = $conn->prepare($sql);
+      $statement->bindValue('year', $year);
+      $statement->execute();
+      $statement->setFetchMode(FetchMode::ASSOCIATIVE);
+      return array_column($statement->fetchAll(), 'amount', 'month');
     }
 
     // /**
