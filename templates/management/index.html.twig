@@ -8,74 +8,74 @@
   <script>
     var ctx = document.getElementById('statsChart').getContext('2d');
     var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec'
-            ],
-            datasets: [
-              {
-                label: 'Approved',
-                  data: [
-                    {% for month in 1..12 %}
-                      {% if approved_expenses_stats[month] is defined %}
-                        {{ approved_expenses_stats[month] }},
-                      {% else %}
-                        0,
-                      {% endif %}
-                    {% endfor %}
-                  ],
-                  backgroundColor: '#2ecc71',
-                  borderWidth: 1
-              },
-              {
-                  label: 'Pending',
-                  data: [
-                    {% for month in 1..12 %}
-                    {% if pending_expenses_stats[month] is defined %}
-                    {{ pending_expenses_stats[month] }},
-                    {% else %}
-                      0,
-                    {% endif %}
-                    {% endfor %}
-                  ],
-                  backgroundColor: '#3498db',
-                  borderWidth: 1
-              },
-            ]
+      type: 'bar',
+      data: {
+          labels: [
+              'Jan',
+              'Feb',
+              'Mar',
+              'Apr',
+              'May',
+              'Jun',
+              'Jul',
+              'Aug',
+              'Sep',
+              'Oct',
+              'Nov',
+              'Dec'
+          ],
+          datasets: [
+            {
+              label: 'Approved',
+              data: [
+              {%- for month in 1..12 -%}
+                {%- if approved_expenses_stats[month] is defined -%}
+                {{ approved_expenses_stats[month] }},
+                {%- else -%}
+                0,
+                {%- endif -%}
+              {%- endfor -%}
+              ],
+              backgroundColor: '#2ecc71',
+              borderWidth: 1
+            },
+            {
+              label: 'Pending',
+              data: [
+              {%- for month in 1..12 -%}
+                {%- if pending_expenses_stats[month] is defined -%}
+                {{ pending_expenses_stats[month] }},
+                {%- else -%}
+                0,
+                {%- endif -%}
+              {%- endfor -%}
+              ],
+              backgroundColor: '#3498db',
+              borderWidth: 1
+            },
+          ]
         },
         options: {
-            responsive: true,
-            scales: {
-                yAxes: [{
-                   ticks: {
-                       min: 0,
-                       beginAtZero: true,
-                   },
-                   scaleLabel: {
-                       display: true,
-                       labelString: "Amount",
-                   },
-                   stacked: true,
-                }],
-                xAxes: [{
-                   stacked: true,
-                }],
-            },
-            legend: {
-                display: false,
-            },
+          responsive: true,
+          scales: {
+            yAxes: [{
+              ticks: {
+                min: 0,
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                display: true,
+                labelString: "Amount",
+              },
+              stacked: true,
+            }],
+            xAxes: [{
+              stacked: true,
+            }],
+          },
+          legend: {
+            display: false,
+          },
         }
     });
   </script>
