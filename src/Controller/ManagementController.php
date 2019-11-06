@@ -25,12 +25,16 @@ class ManagementController extends AbstractController
         ['submit_date'  => 'DESC']
       );
 
-      // Get this year's total expenses per month
-      $stats = $expense_repository->getMonthlyTotalExpenses(date("Y"));
+      // Get this year's total pending expenses per month
+      $pending_expenses_stats = $expense_repository->getMonthlyPendingExpenses(date("Y"));
+
+      // Get this year's total approved expenses per month
+      $approved_expenses_stats = $expense_repository->getMonthlyApprovedExpenses(date("Y"));
 
       return $this->render('management/index.html.twig', [
-        'expenses_stats'    => $stats,
-        'pending_expenses'  => $pending_expenses,
+        'pending_expenses_stats'  => $pending_expenses_stats,
+        'approved_expenses_stats' => $approved_expenses_stats,
+        'pending_expenses'        => $pending_expenses,
       ]);
     }
 }

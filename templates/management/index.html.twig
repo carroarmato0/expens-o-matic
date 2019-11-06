@@ -11,49 +11,54 @@
         type: 'bar',
         data: {
             labels: [
-                'January',
-                'February',
-                'March',
-                'April',
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
                 'May',
-                'June',
-                'July',
-                'August',
-                'September',
-                'October',
-                'November',
-                'December'
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec'
             ],
-            datasets: [{
-                label: 'Expenses',
-                {% if expenses_stats is not empty %}
+            datasets: [
+              {
+                label: 'Approved',
                   data: [
-                  {% for month in 1..12 %}
-                      {% if expenses_stats[month] is defined %}
-                      {{ expenses_stats[month] }},
+                    {% for month in 1..12 %}
+                      {% if approved_expenses_stats[month] is defined %}
+                        {{ approved_expenses_stats[month] }},
                       {% else %}
-                      0,
+                        0,
                       {% endif %}
-                  {% endfor %}
-                ],
-                backgroundColor: [
-                  {% for month in 1..12 %}
-                    'rgba(54, 162, 235, 0.2)',
-                  {% endfor %}
-                ],
-                borderColor: [
-                  {% for month in 1..12 %}
-                    'rgba(54, 162, 235, 1)',
-                  {% endfor %}
-                ],
-                {% endif %}
-                borderWidth: 1
-            }]
+                    {% endfor %}
+                  ],
+                  backgroundColor: '#2ecc71',
+                  borderWidth: 1
+              },
+              {
+                  label: 'Pending',
+                  data: [
+                    {% for month in 1..12 %}
+                    {% if pending_expenses_stats[month] is defined %}
+                    {{ pending_expenses_stats[month] }},
+                    {% else %}
+                      0,
+                    {% endif %}
+                    {% endfor %}
+                  ],
+                  backgroundColor: '#3498db',
+                  borderWidth: 1
+              },
+            ]
         },
         options: {
             responsive: true,
             scales: {
-                yAxis: [{
+                yAxes: [{
                    ticks: {
                        min: 0,
                        beginAtZero: true,
@@ -61,7 +66,11 @@
                    scaleLabel: {
                        display: true,
                        labelString: "Amount",
-                   }
+                   },
+                   stacked: true,
+                }],
+                xAxes: [{
+                   stacked: true,
                 }],
             },
             legend: {

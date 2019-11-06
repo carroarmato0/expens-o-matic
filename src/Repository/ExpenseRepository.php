@@ -21,12 +21,11 @@ class ExpenseRepository extends ServiceEntityRepository
     }
 
   /**
-   * @param $year string The year from which monthly expense totals are summed up
-   * @param $approved bool Only show the approved expenses
+   * @param $year string The year from which monthly pending expense totals are summed up
    * @return mixed[]
    * @throws \Doctrine\DBAL\DBALException
    */
-    public function getMonthlyTotalExpenses($year, $approved = true) {
+    public function getMonthlyPendingExpenses($year) {
       $conn = $this->getEntityManager()->getConnection();
       $sql = '
         SELECT MONTH(date) as month, ROUND(SUM(amount),2) as amount
@@ -34,6 +33,27 @@ class ExpenseRepository extends ServiceEntityRepository
         WHERE approved IS NULL and YEAR(date) = :year
         GROUP BY YEAR(date),MONTH(date)
       ';
+
+      $statement = $conn->prepare($sql);
+      $statement->bindValue('year', $year);
+      $statement->execute();
+      $statement->setFetchMode(FetchMode::ASSOCIATIVE);
+      return array_column($statement->fetchAll(), 'amount', 'month');
+    }
+
+    /**
+     * @param $year string The year from which monthly approved expense totals are summed up
+     * @return mixed[]
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function getMonthlyApprovedExpenses($year) {
+      $conn = $this->getEntityManager()->getConnection();
+      $sql = '
+          SELECT MONTH(date) as month, ROUND(SUM(amount),2) as amount
+          FROM expense
+          WHERE approved=1 and YEAR(date) = :year
+          GROUP BY YEAR(date),MONTH(date)
+        ';
 
       $statement = $conn->prepare($sql);
       $statement->bindValue('year', $year);
