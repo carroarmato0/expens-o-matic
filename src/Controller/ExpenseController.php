@@ -75,6 +75,7 @@
       // Fetch expense by id
       $my_expense = $expense_repository->find($id);
 
+      // Assume that if we can't find the entity, we probably just deleted it, redirect to overview
       if (empty($my_expense)) {
         return $this->redirectToRoute('expense_overview');
       }
@@ -96,6 +97,10 @@
       $expense_repository = $this->getDoctrine()->getRepository(Expense::class);
       // Fetch expense by id
       $my_expense = $expense_repository->find($id);
+
+      if (!$my_expense) {
+        throw $this->createNotFoundException('The requested expense does not exist');
+      }
 
       // Load form to edit an expense
       $expenseForm = $this->createForm(ExpenseFormType::class, $my_expense);
@@ -132,6 +137,10 @@
     public function delete(Request $request, $id) {
       // Fetch expense by id
       $my_expense = $this->getDoctrine()->getRepository(Expense::class)->find($id);
+
+      if (!$my_expense) {
+        throw $this->createNotFoundException('The requested expense does not exist');
+      }
 
       // Get the Entity Manager
       $entityManager = $this->getDoctrine()->getManager();

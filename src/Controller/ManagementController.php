@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Expense;
 
 /**
@@ -43,5 +45,26 @@ class ManagementController extends AbstractController
         'pending_expenses'        => $pending_expenses,
         'processed_expenses'      => $processed_expenses,
       ]);
+    }
+
+    /**
+     * @Route("/management/{id}", name="management_review")
+     * @param $id
+     * @return Response
+     */
+    public function review($id)
+    {
+      // Get expense repository
+      $expense_repository = $this->getDoctrine()->getRepository(Expense::class);
+      // Fetch expense by id
+      $expense = $expense_repository->find($id);
+
+      if (!$expense) {
+        throw $this->createNotFoundException('The requested expense does not exist');
+      }
+
+      return $this->render("management/review.html.twig", array(
+        'expense' => $expense
+      ));
     }
 }

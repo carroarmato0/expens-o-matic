@@ -115,7 +115,7 @@
     {% else %}
     <div class="list-group container-fluid">
       {% for expense in pending_expenses %}
-        <a href="/expense/{{ expense.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <a href="/management/{{ expense.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">{{ expense.name }}</h5>
             <small>€ {{ expense.amount | number_format(2) }}</small>
@@ -148,7 +148,7 @@
     {% else %}
       <div class="list-group container-fluid">
         {% for expense in processed_expenses %}
-          <a href="/expense/{{ expense.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
+          <a href="/management/{{ expense.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1">{{ expense.name }}</h5>
               <small>€ {{ expense.amount | number_format(2) }}</small>
