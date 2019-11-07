@@ -31,10 +31,17 @@ class ManagementController extends AbstractController
       // Get this year's total approved expenses per month
       $approved_expenses_stats = $expense_repository->getMonthlyApprovedExpenses(date("Y"));
 
+      // Get the rest of the of the expenses
+      $processed_expenses = $expense_repository->findBy(
+        ['approved' => !null],
+        ['submit_date' => 'DESC']
+      );
+
       return $this->render('management/index.html.twig', [
         'pending_expenses_stats'  => $pending_expenses_stats,
         'approved_expenses_stats' => $approved_expenses_stats,
         'pending_expenses'        => $pending_expenses,
+        'processed_expenses'      => $processed_expenses,
       ]);
     }
 }

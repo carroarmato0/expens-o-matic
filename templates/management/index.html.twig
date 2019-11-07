@@ -106,7 +106,7 @@
     <canvas id="statsChart" width="400" height="100"></canvas>
   </div>
 
-  <div id="expenses_pending" class="row">
+  <div id="expenses_pending" class="row mt-4">
     <h3 class="mb-3">Pending Expenses</h3>
     {% if pending_expenses is empty %}
     <div class="container-fluid alert alert-secondary">
@@ -136,7 +136,39 @@
         </a>
       {% endfor %}
     </div>
+    {% endif %}
+  </div>
 
+  <div id="expenses_processed" class="row mt-4">
+    <h3 class="mb-3">Processed Expenses</h3>
+    {% if processed_expenses is empty %}
+      <div class="container-fluid alert alert-secondary">
+        <p class="mb-0">There are no processed expenses</p>
+      </div>
+    {% else %}
+      <div class="list-group container-fluid">
+        {% for expense in processed_expenses %}
+          <a href="/expense/{{ expense.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{ expense.name }}</h5>
+              <small>€ {{ expense.amount | number_format(2) }}</small>
+            </div>
+            <p>{{ expense.userId.surname }} {{ expense.userId.name }}</p>
+            <p class="mb-1">{{ expense.date | date("Y-m-d") }}</p>
+            {% if expense.reimbursed == 1 %}
+              <span class="badge badge-success">Paid</span>
+            {% else %}
+              {% if expense.approved is empty %}
+                <span class="badge badge-info">Pending</span>
+              {% elseif expense.approved == 1 %}
+                <span class="badge badge-success">Approved</span>
+              {% else %}
+                <span class="badge badge-danger">Rejected</span>
+              {% endif %}
+            {% endif %}
+          </a>
+        {% endfor %}
+      </div>
     {% endif %}
   </div>
 
