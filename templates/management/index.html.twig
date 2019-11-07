@@ -76,6 +76,23 @@
           legend: {
             display: false,
           },
+          tooltips: {
+            mode: 'label',
+            callbacks: {
+                afterTitle: function() {
+                  window.total = 0;
+                },
+                label: function(tooltipItem, data) {
+                  let expenseState = data.datasets[tooltipItem.datasetIndex].label;
+                  let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                  window.total += value;
+                  return expenseState + ": " + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                },
+                footer: function() {
+                  return "Total: " + window.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                }
+            }
+          }
         }
     });
   </script>
