@@ -64,7 +64,7 @@
                 beginAtZero: true,
               },
               scaleLabel: {
-                display: true,
+                display: false,
                 labelString: "Amount",
               },
               stacked: true,
@@ -106,7 +106,7 @@
     <canvas id="statsChart" width="400" height="100"></canvas>
   </div>
 
-  <div id="expenses_pending" class="row mt-4">
+  <div id="expenses_pending" class="row">
     <h3 class="mb-3">Pending Expenses</h3>
     {% if pending_expenses is empty %}
     <div class="container-fluid alert alert-secondary">
