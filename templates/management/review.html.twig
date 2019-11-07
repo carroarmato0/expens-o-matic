@@ -3,5 +3,29 @@
 {% block title %}expens-o-matic Management{% endblock %}
 
 {% block body %}
+<div class="row">
+  <div class="col-xl-8 container-fluid p-3">
+    {% if expense is empty %}
+      <div class="alert alert-primary">
+        <h4 class="alert-heading">Oops!</h4>
+        <p class="mb-0">This is awkward, your expense wasn&#39;t found!</p>
+      </div>
+    {% else %}
+      <div id="expenses" class="jumbotron p-4">
+        <h3>{{ expense.name }}</h3><p>{{ expense.date | date("Y-m-d") }}</p>
+        <p>Submitted by <a href="#">{{ expense.userId.surname }} {{ expense.userId.name }}</a> on {{ expense.submitdate | date("Y-m-d H:m") }}</p>
+        <p class="lead mt-4">{{ expense.description }}</p>
+        <hr class="my-4">
+        <p class="lead font-weight-bold">Total: {{ expense.amount | number_format(2) }} €</p>
 
+        <div class="row d-flex justify-content-center">
+          <div class="col-sm-3">
+            <a class="btn btn-success btn-block btn-lg" href="#" role="button">Approve</a>
+            <a class="btn btn-primary btn-block btn-lg" href="#" role="button">Reject</a>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
