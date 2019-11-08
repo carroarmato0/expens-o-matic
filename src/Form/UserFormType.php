@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Forms;
+namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\CallbackTransformer;

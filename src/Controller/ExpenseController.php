@@ -2,7 +2,7 @@
 
   namespace App\Controller;
 
-  use App\Forms\ExpenseFormType;
+  use App\Form\ExpenseFormType;
 
   use Exception;
   use Symfony\Component\HttpFoundation\Request;
