@@ -37,7 +37,7 @@ class ReviewFormType extends AbstractType {
         $builder
           ->add("accept", SubmitType::class, [
             'attr' => [
-              'class' => 'btn btn-success btn-block btn-lg mb-2',
+              'class' => 'btn btn-secondary btn-block btn-lg mb-2',
             ],
             'disabled' => true,
           ])
@@ -57,7 +57,7 @@ class ReviewFormType extends AbstractType {
           ])
           ->add("reject", SubmitType::class, [
             'attr' => [
-              'class' => 'btn btn-primary btn-block btn-lg mt-2 mb-2',
+              'class' => 'btn btn-secondary btn-block btn-lg mt-2 mb-2',
             ],
             'disabled' => true,
           ])
