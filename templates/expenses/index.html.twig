@@ -71,7 +71,8 @@
                 <h5 class="mb-1">{{ expense.name }}</h5>
                 <small>€ {{ expense.amount | number_format(2) }}</small>
               </div>
-              <p class="mb-1">{{ expense.date | date("Y-m-d") }}</p>
+              <p>{{ expense.date | date("Y-m-d") }}</p>
+              <p>{{ expense.description }}</p>
               {% if expense.reimbursed == 1 %}
                 <span class="badge badge-success">Paid</span>
               {% else %}
