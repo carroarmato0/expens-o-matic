@@ -67,7 +67,7 @@ Migrating up to 20191007184657 from 0
 - [ ] Updating Expenses while not being reviewed
 - [ ] Global view of my expenses, grouped by year/month
 - [ ] Interface for approver role
-  - [ ] Be able to approve expenses
+  - [x] Be able to approve expenses
   - [ ] Be able to approve multiple expenses
   - [ ] Reopen Expenses for modification
   - [ ] Flag expenses as paidout

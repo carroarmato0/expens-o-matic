@@ -20,16 +20,9 @@
 
         <div class="row d-flex justify-content-center">
           <div class="col-sm-3">
-            {% if expense.approved is null %}
-            <a class="btn btn-success btn-block btn-lg" href="#" role="button">Approve</a>
-            <a class="btn btn-primary btn-block btn-lg" href="#" role="button">Reject</a>
-            {% elseif expense.approved == 0 %}
-            <a class="btn btn-success btn-block btn-lg" href="#" role="button">Approve</a>
-            <a class="btn btn-primary btn-block btn-lg disabled" href="#" role="button">Reject</a>
-            {% elseif expense.approved == 1 %}
-              <a class="btn btn-success btn-block btn-lg disabled" href="#" role="button">Approve</a>
-              <a class="btn btn-primary btn-block btn-lg" href="#" role="button">Reject</a>
-            {% endif %}
+            {{ form_start(reviewForm) }}
+            {{ form_end(reviewForm) }}
+            <a class="btn btn-info btn-block btn-lg mt-2" href="/management" role="button">Back</a>
           </div>
         </div>
       </div>

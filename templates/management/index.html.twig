@@ -125,7 +125,7 @@
           {% if expense.reimbursed == 1 %}
             <span class="badge badge-success">Paid</span>
           {% else %}
-            {% if expense.approved is empty %}
+            {% if expense.approved == 0 %}
               <span class="badge badge-info">Pending</span>
             {% elseif expense.approved == 1 %}
               <span class="badge badge-success">Approved</span>

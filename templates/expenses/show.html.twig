@@ -46,10 +46,10 @@
       </div>
       <div class="form-group">
         <a class="btn btn-info btn-lg" href="/" role="button">Back</a>
-        {% if (expense.approved is null) and (expense.reimbursed == 0) %}
+        {% if (expense.approved == 0) and (expense.reimbursed == 0) %}
         <a class="btn btn-secondary btn-lg" href="/expense/{{ expense.id }}/edit" role="button">Edit</a>
         <a class="btn btn-primary btn-lg delete-expense" data-id="{{ expense.id }}" href="#" role="button">Delete</a>
-        {% elseif (expense.approved == 0) and (expense.reimbursed == 0) %}
+        {% elseif (expense.approved == 2) and (expense.reimbursed == 0) %}
         <a class="btn btn-primary btn-lg delete-expense" data-id="{{ expense.id }}" href="#" role="button">Delete</a>
         {% endif %}
       </div>

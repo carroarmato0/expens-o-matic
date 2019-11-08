@@ -44,9 +44,9 @@ class Expense
     private $amount;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
+     * @ORM\Column(type="smallint")
      */
-    private $approved;
+    private $approved = 0;
 
     /**
      * @ORM\Column(type="smallint")

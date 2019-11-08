@@ -30,7 +30,7 @@ class ExpenseRepository extends ServiceEntityRepository
       $sql = '
         SELECT MONTH(date) as month, ROUND(SUM(amount),2) as amount
         FROM expense
-        WHERE approved IS NULL and YEAR(date) = :year
+        WHERE approved=0 and YEAR(date) = :year
         GROUP BY YEAR(date),MONTH(date)
       ';
 

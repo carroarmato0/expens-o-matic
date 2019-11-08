@@ -5,6 +5,7 @@
   use App\Form\ExpenseFormType;
 
   use Exception;
+  use Symfony\Component\HttpFoundation\RedirectResponse;
   use Symfony\Component\HttpFoundation\Request;
   use Symfony\Component\HttpFoundation\Response;
   use Symfony\Component\Routing\Annotation\Route;
@@ -132,7 +133,7 @@
      * @Route("/expense/{id}/delete", methods={"DELETE"}, name = "expense_delete")
      * @param Request $request
      * @param $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete(Request $request, $id) {
       // Fetch expense by id
