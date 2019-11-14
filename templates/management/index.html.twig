@@ -113,7 +113,7 @@
       <p class="mb-0">There are no pending expenses</p>
     </div>
     {% else %}
-    <div class="list-group container-fluid">
+    <div class="list-group container-fluid pr-0">
       {% for expense in pending_expenses %}
         <a href="/management/{{ expense.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
           <div class="d-flex w-100 justify-content-between">
@@ -147,7 +147,7 @@
         <p class="mb-0">There are no processed expenses</p>
       </div>
     {% else %}
-      <div class="list-group container-fluid">
+      <div class="list-group container-fluid pr-0">
         {% for expense in processed_expenses %}
           <a href="/management/{{ expense.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
